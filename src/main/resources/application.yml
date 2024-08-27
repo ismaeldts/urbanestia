@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: mcsv-property
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5435/urbanestia
+    username: ismael
+    password: Test123
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://localhost:5435/urbanestia
+    user: ismael
+    password: Test123
+    locations: classpath:db/migration

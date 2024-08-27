@@ -1,0 +1,12 @@
+services:
+  urbanestia:
+    container_name: urbanestia_db
+    image: postgres:15.2
+    environment:
+      POSTGRES_USER: ismael
+      POSTGRES_PASSWORD: Test123
+      POSTGRES_DB: urbanestia
+    ports:
+      - '5435:5435'
+    command:
+      -p 5435
