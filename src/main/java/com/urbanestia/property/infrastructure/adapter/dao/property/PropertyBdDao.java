@@ -68,8 +68,14 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort {
 
 
     @Override
-    public Flux<PropertyModel> findAllProperties(PropertyCriteria criteria) {
+    public Flux<PropertyModel> findAllPropertiesByCriteria(PropertyCriteria criteria) {
         return propertyRepository.findAll()
+                .map(this.propertyEntityMapper::toEntity);
+    }
+
+    @Override
+    public Flux<PropertyModel> findAllProperties() {
+        return this.propertyRepository.findAll()
                 .map(this.propertyEntityMapper::toEntity);
     }
 

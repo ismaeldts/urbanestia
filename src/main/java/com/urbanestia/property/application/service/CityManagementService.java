@@ -1,4 +1,4 @@
-package com.urbanestia.property.application.service.city;
+package com.urbanestia.property.application.service;
 
 import com.urbanestia.property.application.usecase.CityUseCase;
 import com.urbanestia.property.domain.model.CityModel;

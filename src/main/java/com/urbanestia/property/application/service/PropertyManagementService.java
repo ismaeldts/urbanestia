@@ -1,4 +1,4 @@
-package com.urbanestia.property.application.service.property;
+package com.urbanestia.property.application.service;
 
 import com.urbanestia.property.domain.model.PropertyModel;
 import com.urbanestia.property.domain.port.property.CreatePropertyPort;
@@ -25,4 +25,8 @@ public class PropertyManagementService {
     public Flux<PropertyModel> findById(UUID id) {
         return findPropertyPort.findAllPropertiesByOwner(id.toString());
     }
+    public Flux<PropertyModel> findAllProperties() {
+        return findPropertyPort.findAllProperties();
+    }
+
 }

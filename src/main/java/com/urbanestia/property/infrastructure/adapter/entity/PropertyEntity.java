@@ -25,11 +25,14 @@ public class PropertyEntity {
     private String description;
     private Integer numberOfRooms;
     private Integer numberOfBathrooms;
+    private CountryEntity countryId;
     private String type;
     private LocalDateTime publicationDate;
     private LocalDateTime updatedDate;
     private String status;
     private Double price;
     private PropertyType propertyType;
+    private Double latitude;
+    private Double longitude;
 
 }

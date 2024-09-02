@@ -18,5 +18,7 @@ public class PropertyRequest {
     private Integer numberOfRooms;
     private Integer numberOfBathrooms;
     private String type;
+    private Double latitude;
+    private Double longitude;
 
 }

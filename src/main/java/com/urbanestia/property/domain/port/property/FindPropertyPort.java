@@ -9,7 +9,8 @@ import java.util.UUID;
 
 public interface FindPropertyPort {
 
-    Flux<PropertyModel> findAllProperties(PropertyCriteria criteria);
+    Flux<PropertyModel> findAllPropertiesByCriteria(PropertyCriteria criteria);
+    Flux<PropertyModel> findAllProperties( );
 
     Mono<PropertyModel> updatePropertyById(UUID id, PropertyModel propertyModel);
 

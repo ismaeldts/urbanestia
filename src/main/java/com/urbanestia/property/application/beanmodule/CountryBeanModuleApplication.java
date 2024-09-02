@@ -1,7 +1,7 @@
 package com.urbanestia.property.application.beanmodule;
 
-import com.urbanestia.property.application.service.city.CityManagementService;
-import com.urbanestia.property.application.service.country.CountryManagementService;
+import com.urbanestia.property.application.service.CityManagementService;
+import com.urbanestia.property.application.service.CountryManagementService;
 import com.urbanestia.property.domain.port.city.CreateCityPort;
 import com.urbanestia.property.domain.port.country.CreateCountryPort;
 import org.springframework.context.annotation.Bean;

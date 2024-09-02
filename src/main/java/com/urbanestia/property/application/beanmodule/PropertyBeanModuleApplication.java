@@ -1,6 +1,6 @@
 package com.urbanestia.property.application.beanmodule;
 
-import com.urbanestia.property.application.service.property.PropertyManagementService;
+import com.urbanestia.property.application.service.PropertyManagementService;
 import com.urbanestia.property.domain.port.property.CreatePropertyPort;
 import com.urbanestia.property.domain.port.property.FindPropertyPort;
 import org.springframework.context.annotation.Bean;
