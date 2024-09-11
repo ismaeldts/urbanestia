@@ -20,21 +20,9 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>9.2.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.owasp.encoder</groupId>
             <artifactId>encoder</artifactId>
             <version>1.2.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>8.0.1.Final</version>
         </dependency>
 
         <dependency>
@@ -54,15 +42,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>r2dbc-postgresql</artifactId>
-            <version>1.0.2.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
         </dependency>
 
         <!-- Lombok -->

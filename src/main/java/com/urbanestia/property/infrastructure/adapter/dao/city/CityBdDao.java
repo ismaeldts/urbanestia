@@ -14,8 +14,14 @@ public class CityBdDao implements CreateCityPort {
 
     private final CityRepository cityRepository;
     private final CityDtoMapper cityDtoMapper;
+
     @Override
     public Mono<CityModel> createCity(CityModel cityModel) {
-        return null;
+        return cityRepository.save(cityDtoMapper.toDto(cityModel))
+                .map(this.cityDtoMapper::toEntity);
+    }
+
+    public Mono<Void> deleteProperty(String status){
+        return Mono.just(this.cityRepository.updatePropertyStatus(status));
     }
 }

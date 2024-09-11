@@ -1,12 +1,16 @@
 services:
-  urbanestia:
-    container_name: urbanestia_db
-    image: postgres:15.2
+  mongodb:
+    image: 'mongo:latest'
+    container_name: 'liquors-golden-mongodb'
     environment:
-      POSTGRES_USER: ismael
-      POSTGRES_PASSWORD: Test123
-      POSTGRES_DB: urbanestia
+      - 'MONGO_INITDB_DATABASE=properties_db'
+      - 'MONGO_INITDB_ROOT_PASSWORD=urbanestia_ismael'
+      - 'MONGO_INITDB_ROOT_USERNAME=urbanestia_properties'
     ports:
-      - '5435:5435'
-    command:
-      -p 5435
+      - '27017:27017'
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

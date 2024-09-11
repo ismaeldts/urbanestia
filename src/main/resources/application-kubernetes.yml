@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: kubernetes
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: properties_db

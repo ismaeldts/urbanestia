@@ -8,6 +8,7 @@ import com.urbanestia.property.infrastructure.adapter.entity.mapper.PropertyEnti
 import com.urbanestia.property.infrastructure.adapter.filter.criteria.PropertyCriteria;
 import com.urbanestia.property.infrastructure.adapter.repository.PropertyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -23,6 +24,7 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort {
     private final PropertyRepository propertyRepository;
     private final PropertyEntityMapper propertyEntityMapper;
     private final DatabaseClient databaseClient;
+    private final ReactiveMongoTemplate reactiveMongoTemplate;
 
     public Flux<PropertyEntity> findProperties(PropertyCriteria filter) {
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM properties WHERE 1=1");
@@ -87,11 +89,4 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort {
                 .map(this.propertyEntityMapper::toEntity);
     }
 
-
-    @Override
-    public Flux<PropertyModel> findAllPropertiesByOwner(String ownerId) {
-        return this.propertyRepository.findAllByOwner(ownerId)
-                .switchIfEmpty(Mono.error(new RuntimeException("There's not owner with this id.")))
-                .map(this.propertyEntityMapper::toEntity);
-    }
 }

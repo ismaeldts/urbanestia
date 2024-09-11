@@ -1,17 +1,7 @@
 spring:
-  application:
-    name: products-microservice
-  r2dbc:
-    url: r2dbc:postgresql://dpg-cr6v06a3esus7393saog-a.oregon-postgres.render.com:5432/urbanestia
-    username: urbanestia_ismael
-    password: bm17lzeqdAsvCvi3GxXgcBMPoNwkT98S
-    driver-class-name: org.postgresql.Driver
-
-  flyway:
-    url: jdbc:postgresql://dpg-cr6v06a3esus7393saog-a.oregon-postgres.render.com:5432/urbanestia
-    user: urbanestia_ismael
-    password: bm17lzeqdAsvCvi3GxXgcBMPoNwkT98S
-    schemas: public
-    baselineOnMigrate: true
-    locations: db/migration
-    enabled: true
+  profiles:
+    active: local
+  data:
+    host: localhost
+    port: 27017
+    database: urbanestia_properties

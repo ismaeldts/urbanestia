@@ -22,9 +22,6 @@ public class PropertyManagementService {
         return createPropertyPort.createProperty(propertyModel);
     }
 
-    public Flux<PropertyModel> findById(UUID id) {
-        return findPropertyPort.findAllPropertiesByOwner(id.toString());
-    }
     public Flux<PropertyModel> findAllProperties() {
         return findPropertyPort.findAllProperties();
     }

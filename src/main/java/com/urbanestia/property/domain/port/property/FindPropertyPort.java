@@ -14,7 +14,6 @@ public interface FindPropertyPort {
 
     Mono<PropertyModel> updatePropertyById(UUID id, PropertyModel propertyModel);
 
-    Flux<PropertyModel> findAllPropertiesByOwner(String ownerId);
 
 
 
