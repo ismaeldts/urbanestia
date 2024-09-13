@@ -1,0 +1,32 @@
+name: Build and Deploy to Kubernetes
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install kubectl
+        run: |
+          curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
+
+      - name: Set up Kubernetes
+        run: |
+          kubectl config set-cluster empre-cluster --server=${{ secrets.K8S_HOST }} --insecure-skip-tls-verify=true
+          kubectl config set-credentials ${{ secrets.K8S_USER }} --token=${{ secrets.K8S_TOKEN }}
+          kubectl config set-context empre-context --cluster=empre-cluster --namespace=default --user=${{ secrets.K8S_USER }}
+          kubectl config use-context empre-context
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f deployment.yaml
+          kubectl rollout status deployment/nombre-app
