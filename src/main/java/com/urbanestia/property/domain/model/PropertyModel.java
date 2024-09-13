@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PropertyModel {
 
-    private Long id;
+    private String id;
     private String owner;
     private String title;
     private String description;

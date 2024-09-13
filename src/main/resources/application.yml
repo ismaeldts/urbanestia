@@ -1,7 +1,4 @@
 spring:
-  profiles:
-    active: local
   data:
-    host: localhost
-    port: 27017
-    database: urbanestia_properties
+    mongodb:
+      uri: mongodb://urbanestia_properties:urbanestia_ismael@localhost:27017/properties_db?authSource=admin

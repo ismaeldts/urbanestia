@@ -5,14 +5,12 @@ import com.urbanestia.property.infrastructure.adapter.filter.criteria.PropertyCr
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.UUID;
-
 public interface FindPropertyPort {
 
     Flux<PropertyModel> findAllPropertiesByCriteria(PropertyCriteria criteria);
     Flux<PropertyModel> findAllProperties( );
 
-    Mono<PropertyModel> updatePropertyById(UUID id, PropertyModel propertyModel);
+    Mono<PropertyModel> updatePropertyById(String id, PropertyModel propertyModel);
 
 
 

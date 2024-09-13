@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.relational.core.mapping.Table;
-
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +14,7 @@ import java.util.UUID;
 @Document("countries")
 public class CountryEntity {
     @Id
-    private UUID id;
+    private String id;
     private String name;
     private String code;
 }

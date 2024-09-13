@@ -1,7 +1,7 @@
 services:
   mongodb:
     image: 'mongo:latest'
-    container_name: 'liquors-golden-mongodb'
+    container_name: 'urbanestia_mongodb'
     environment:
       - 'MONGO_INITDB_DATABASE=properties_db'
       - 'MONGO_INITDB_ROOT_PASSWORD=urbanestia_ismael'
@@ -9,8 +9,26 @@ services:
     ports:
       - '27017:27017'
     networks:
-      - app-network
+       - mongo-network
+
+  mongo-express:
+    build: .
+    container_name: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=adminpassword
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+    ports:
+      - "8081:8081"
+    networks:
+      - mongo-network
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo-data:
+    driver: local
 
 networks:
-  app-network:
+  mongo-network:
     driver: bridge

@@ -21,7 +21,7 @@ public class CityBdDao implements CreateCityPort {
                 .map(this.cityDtoMapper::toEntity);
     }
 
-    public Mono<Void> deleteProperty(String status){
-        return Mono.just(this.cityRepository.updatePropertyStatus(status));
-    }
+   // public Mono<Void> deleteProperty(String status){
+   //     return Mono.just(this.cityRepository.updatePropertyStatus(status));
+   // }
 }

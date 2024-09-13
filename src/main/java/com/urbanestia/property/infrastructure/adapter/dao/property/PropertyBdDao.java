@@ -9,13 +9,11 @@ import com.urbanestia.property.infrastructure.adapter.filter.criteria.PropertyCr
 import com.urbanestia.property.infrastructure.adapter.repository.PropertyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
-import org.springframework.r2dbc.core.DatabaseClient;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,43 +21,8 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort {
 
     private final PropertyRepository propertyRepository;
     private final PropertyEntityMapper propertyEntityMapper;
-    private final DatabaseClient databaseClient;
     private final ReactiveMongoTemplate reactiveMongoTemplate;
 
-    public Flux<PropertyEntity> findProperties(PropertyCriteria filter) {
-        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM properties WHERE 1=1");
-
-        // Append conditions based on filter criteria
-        if (filter.getMinNumberOfRooms() != null) {
-            queryBuilder.append(" AND number_of_rooms >= ").append(filter.getMinNumberOfRooms());
-        }
-        if (filter.getMaxNumberOfRooms() != null) {
-            queryBuilder.append(" AND number_of_rooms <= ").append(filter.getMaxNumberOfRooms());
-        }
-        if (filter.getMinNumberOfBathrooms() != null) {
-            queryBuilder.append(" AND number_of_bathrooms >= ").append(filter.getMinNumberOfBathrooms());
-        }
-        if (filter.getMaxNumberOfBathrooms() != null) {
-            queryBuilder.append(" AND number_of_bathrooms <= ").append(filter.getMaxNumberOfBathrooms());
-        }
-
-        // Execute the query
-        return databaseClient.sql(queryBuilder.toString())
-                .map(row -> {
-                    PropertyEntity entity = new PropertyEntity();
-                    entity.setId(row.get("id", Long.class));
-                    entity.setOwner(row.get("owner", String.class));
-                    entity.setTitle(row.get("title", String.class));
-                    entity.setDescription(row.get("description", String.class));
-                    // Note: Handle complex objects like CountryModel separately if needed
-                    entity.setNumberOfRooms(row.get("number_of_rooms", Integer.class));
-                    entity.setNumberOfBathrooms(row.get("number_of_bathrooms", Integer.class));
-                    entity.setType(row.get("type", String.class));
-                    entity.setPublicationDate(row.get("publication_date", LocalDateTime.class));
-                    return entity;
-                })
-                .all();
-    }
 
     @Override
     public Mono<PropertyModel> createProperty(PropertyModel propertyModel) {
@@ -71,20 +34,44 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort {
 
     @Override
     public Flux<PropertyModel> findAllPropertiesByCriteria(PropertyCriteria criteria) {
-        return propertyRepository.findAll()
-                .map(this.propertyEntityMapper::toEntity);
+
+        Query query = new Query();
+
+        if (criteria.getMaxNumberOfBathrooms() != null) {
+            query.addCriteria(Criteria.where("maxNumberOfBathrooms").is(criteria.getMaxNumberOfBathrooms()));
+        }
+        if (criteria.getMinNumberOfBathrooms() != null) {
+            query.addCriteria(Criteria.where("minNumberOfBathrooms").is(criteria.getMinNumberOfBathrooms()));
+        }
+        if (criteria.getMinNumberOfRooms() != null) {
+            query.addCriteria(Criteria.where("minNumberOfRooms").is(criteria.getMinNumberOfRooms()));
+        }
+        if (criteria.getMaxNumberOfRooms() != null) {
+            query.addCriteria(Criteria.where("minNumberOfRooms").is(criteria.getMinNumberOfRooms()));
+        }
+        if (criteria.getMaxGuestCapacity() != null) {
+            query.addCriteria(Criteria.where("maxGuestCapacity").is(criteria.getMaxGuestCapacity()));
+        }
+
+        if (criteria.getMinGuestCapacity() != null) {
+            query.addCriteria(Criteria.where("minGuestCapacity").is(criteria.getMinGuestCapacity()));
+        }
+
+        return reactiveMongoTemplate.find(query, PropertyEntity.class).map(this.propertyEntityMapper::toEntity);
     }
+
 
     @Override
     public Flux<PropertyModel> findAllProperties() {
         return this.propertyRepository.findAll()
-                .map(this.propertyEntityMapper::toEntity);
+                .map(this.propertyEntityMapper::toEntity)
+                .switchIfEmpty(Mono.error(() -> new RuntimeException("There's no properties in to the database.")));
     }
 
     @Override
-    public Mono<PropertyModel> updatePropertyById(UUID id, PropertyModel propertyModel) {
+    public Mono<PropertyModel> updatePropertyById(String id, PropertyModel propertyModel) {
         return this.propertyRepository.findById(id)
-                .switchIfEmpty(Mono.error(new RuntimeException("")))
+                .switchIfEmpty(Mono.error(new RuntimeException("There's not Property with this id.")))
                 .flatMap(this.propertyRepository::save)
                 .map(this.propertyEntityMapper::toEntity);
     }
