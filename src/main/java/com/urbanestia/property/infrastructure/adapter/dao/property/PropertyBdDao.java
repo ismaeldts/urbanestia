@@ -38,23 +38,23 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort {
         Query query = new Query();
 
         if (criteria.getMaxNumberOfBathrooms() != null) {
-            query.addCriteria(Criteria.where("maxNumberOfBathrooms").is(criteria.getMaxNumberOfBathrooms()));
+            query.addCriteria(Criteria.where("numberOfBathrooms").gte(criteria.getMaxNumberOfBathrooms()));
         }
         if (criteria.getMinNumberOfBathrooms() != null) {
-            query.addCriteria(Criteria.where("minNumberOfBathrooms").is(criteria.getMinNumberOfBathrooms()));
+            query.addCriteria(Criteria.where("numberOfBathrooms").lte(criteria.getMinNumberOfBathrooms()));
         }
         if (criteria.getMinNumberOfRooms() != null) {
-            query.addCriteria(Criteria.where("minNumberOfRooms").is(criteria.getMinNumberOfRooms()));
+            query.addCriteria(Criteria.where("numberOfRooms").gte(criteria.getMinNumberOfRooms()));
         }
         if (criteria.getMaxNumberOfRooms() != null) {
-            query.addCriteria(Criteria.where("minNumberOfRooms").is(criteria.getMinNumberOfRooms()));
+            query.addCriteria(Criteria.where("numberOfRooms").lte(criteria.getMaxNumberOfRooms()));
         }
         if (criteria.getMaxGuestCapacity() != null) {
-            query.addCriteria(Criteria.where("maxGuestCapacity").is(criteria.getMaxGuestCapacity()));
+            query.addCriteria(Criteria.where("guestCapacity").gte(criteria.getMaxGuestCapacity()));
         }
 
         if (criteria.getMinGuestCapacity() != null) {
-            query.addCriteria(Criteria.where("minGuestCapacity").is(criteria.getMinGuestCapacity()));
+            query.addCriteria(Criteria.where("guestCapacity").gte(criteria.getMinGuestCapacity()));
         }
 
         return reactiveMongoTemplate.find(query, PropertyEntity.class).map(this.propertyEntityMapper::toEntity);

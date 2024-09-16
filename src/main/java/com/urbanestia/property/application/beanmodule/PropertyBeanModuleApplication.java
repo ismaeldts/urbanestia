@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Configuration;
 public class PropertyBeanModuleApplication {
 
     @Bean
-    public PropertyManagementService propertyManagementService(CreatePropertyPort createPropertyPort, FindPropertyPort findPropertyPort) {
+    public PropertyManagementService propertyManagementService(
+            CreatePropertyPort createPropertyPort,
+            FindPropertyPort findPropertyPort) {
         return new PropertyManagementService(createPropertyPort, findPropertyPort);
     }
 }

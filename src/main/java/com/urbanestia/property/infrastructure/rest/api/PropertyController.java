@@ -1,7 +1,6 @@
 package com.urbanestia.property.infrastructure.rest.api;
 
 import com.urbanestia.property.application.service.PropertyManagementService;
-import com.urbanestia.property.infrastructure.adapter.entity.dto.PropertyDTO;
 import com.urbanestia.property.infrastructure.adapter.filter.criteria.PropertyCriteria;
 import com.urbanestia.property.infrastructure.rest.api.dto.request.PropertyRequest;
 import com.urbanestia.property.infrastructure.rest.api.dto.response.BaseEntityResponse;
@@ -41,9 +40,25 @@ public class PropertyController {
                                 .build())));
     }
 
-    @GetMapping
-    public Mono<ResponseEntity<PropertyDTO>> findAllPropertiesByCriteria(PropertyCriteria criteria) {
-        return null;
+    @GetMapping(path = "/findAll/filter")
+    public Flux<PropertyResponse> findAllPropertiesByCriteria(
+            @RequestParam(required = false) Integer maxNumberOfBathrooms,
+            @RequestParam(required = false) Integer minNumberOfBathrooms,
+            @RequestParam(required = false) Integer minNumberOfRooms,
+            @RequestParam(required = false) Integer maxNumberOfRooms,
+            @RequestParam(required = false) Integer maxGuestCapacity,
+            @RequestParam(required = false) Integer minGuestCapacity
+    ) {
+        return propertyManagementService.findAllPropertiesByCriteria(
+                PropertyCriteria.builder()
+                        .maxNumberOfBathrooms(maxNumberOfBathrooms)
+                        .minNumberOfBathrooms(minNumberOfBathrooms)
+                        .minNumberOfRooms(minNumberOfRooms)
+                        .maxNumberOfRooms(maxNumberOfRooms)
+                        .maxGuestCapacity(maxGuestCapacity)
+                        .minGuestCapacity(minGuestCapacity)
+                        .build())
+                .map(this.propertyDTOMapper::toDto);
     }
 
     @GetMapping(path = "/findAll")
@@ -51,5 +66,6 @@ public class PropertyController {
         return this.propertyManagementService.findAllProperties() // Asumiendo que devuelve Flux<PropertyModel>
                 .map(this.propertyDTOMapper::toDto); // Aquí se mapea el PropertyModel a PropertyResponse
     }
+
 
 }
