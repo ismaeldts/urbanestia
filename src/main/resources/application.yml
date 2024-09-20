@@ -1,4 +1,6 @@
 spring:
+  profile:
+    active: develop
   data:
     mongodb:
       uri: mongodb://urbanestia_properties:urbanestia_ismael@localhost:27017/properties_db?authSource=admin

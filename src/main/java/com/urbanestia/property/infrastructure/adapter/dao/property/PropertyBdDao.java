@@ -23,7 +23,6 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort {
     private final PropertyEntityMapper propertyEntityMapper;
     private final ReactiveMongoTemplate reactiveMongoTemplate;
 
-
     @Override
     public Mono<PropertyModel> createProperty(PropertyModel propertyModel) {
         return propertyRepository
