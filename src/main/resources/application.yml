@@ -1,6 +1,6 @@
 spring:
-  profile:
-    active: develop
+  application:
+    name: mcsv-property
   data:
     mongodb:
-      uri: mongodb://urbanestia_properties:urbanestia_ismael@localhost:27017/properties_db?authSource=admin
+      uri: mongodb://mongo:mJEjTyBWMZWTebFkUYyOtevRlYBdqwTm@autorack.proxy.rlwy.net:10471/urbanestia?authSource=admin
