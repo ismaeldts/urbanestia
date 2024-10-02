@@ -21,6 +21,7 @@ public class PropertyEntity {
     private String owner;
     private String title;
     private String description;
+    private String imgUrl;
     private Integer numberOfRooms;
     private Integer numberOfBathrooms;
     private Integer guestCapacity;

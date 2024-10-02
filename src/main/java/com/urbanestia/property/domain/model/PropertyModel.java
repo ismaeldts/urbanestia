@@ -23,7 +23,7 @@ public class PropertyModel {
     private Integer numberOfRooms;
     private Integer numberOfBathrooms;
     private Double price;
-    private String profileImg;
+    private String imgUrl;
     private String status;
     private String type;
     private List<String> images;

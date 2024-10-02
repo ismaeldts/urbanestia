@@ -20,5 +20,6 @@ public class PropertyRequest {
     private String type;
     private Double latitude;
     private Double longitude;
+    private String imgUrl;
 
 }
