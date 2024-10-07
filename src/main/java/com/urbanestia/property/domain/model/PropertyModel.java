@@ -15,18 +15,18 @@ import java.util.List;
 public class PropertyModel {
 
     private String id;
-    private String owner;
+    private String ownerId;
     private String title;
     private String description;
-    private CountryModel countryModel;
+    private CountryModel country;
     private Integer guestCapacity;
     private Integer numberOfRooms;
     private Integer numberOfBathrooms;
     private Double price;
     private String imgUrl;
-    private String status;
     private String type;
-    private List<String> images;
+    private String status;
+    private List<String> descriptionImages;
     private LocalDateTime publicationDate;
     private Double latitude;
     private Double longitude;

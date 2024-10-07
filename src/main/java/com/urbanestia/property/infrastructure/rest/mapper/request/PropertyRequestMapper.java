@@ -8,4 +8,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface PropertyRequestMapper extends EntityToDto<PropertyModel, PropertyRequest> {
+
+
 }
