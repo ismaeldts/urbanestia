@@ -1,4 +1,4 @@
-package com.urbanestia.property.infrastructure.adapter.dao.city;
+package com.urbanestia.property.infrastructure.adapter.dao;
 
 import com.urbanestia.property.domain.model.CityModel;
 import com.urbanestia.property.domain.port.city.CreateCityPort;

@@ -1,4 +1,4 @@
-package com.urbanestia.property.infrastructure.adapter.dao.country;
+package com.urbanestia.property.infrastructure.adapter.dao;
 
 import com.urbanestia.property.domain.model.CountryModel;
 import com.urbanestia.property.domain.port.country.CreateCountryPort;
