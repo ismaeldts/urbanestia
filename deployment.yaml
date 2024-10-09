@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: urbanestia_backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: urbanestia_backend
+  template:
+    metadata:
+      labels:
+        app: urbanestia_backend
+    spec:
+      containers:
+        - name: urbanestia_backend_container
+          image: ismaeltrochas/urbanestia_backend:latest
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "kubernetes"
+          ports:
+            - containerPort: 8080
+---
