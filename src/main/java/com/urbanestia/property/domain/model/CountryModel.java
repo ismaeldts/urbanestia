@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Getter//
 @Setter
 public class CountryModel {
     private String  id;
