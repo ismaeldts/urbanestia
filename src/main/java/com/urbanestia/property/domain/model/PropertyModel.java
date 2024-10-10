@@ -26,6 +26,7 @@ public class PropertyModel {
     private String imgUrl;
     private String type;
     private String status;
+    private String direction;
     private List<String> descriptionImages;
     private LocalDateTime publicationDate;
     private Double latitude;

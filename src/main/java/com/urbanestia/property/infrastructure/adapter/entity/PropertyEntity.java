@@ -23,6 +23,7 @@ public class PropertyEntity {
     private String title;
     private String description;
     private CountryEntity country;
+    private String direction;
     private Integer guestCapacity;
     private Integer numberOfRooms;
     private Integer numberOfBathrooms;
