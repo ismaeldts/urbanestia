@@ -12,6 +12,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      
+    # Paso 2: Instalar JDK 17 (Requerido por Amazon Corretto 17)
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'corretto'
+        
+    # Paso 3: Construir el proyecto con Maven
+    - name: Build project
+      run: mvn clean package
 
     - name: Log in to DockerHub
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
