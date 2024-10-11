@@ -15,9 +15,6 @@ spec:
       containers:
         - name: urbanestia-backend-container
           image: ismaeltrochas/urbanestia:latest
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: "kubernetes"
           ports:
             - containerPort: 8080
 
@@ -28,7 +25,7 @@ metadata:
   name: urbanestia-service
 spec:
   selector:
-    app: urbanestia-service
+    app: urbanestia-backend
   ports:
     - protocol: TCP
       port: 80         # Puerto que expone el servicio
