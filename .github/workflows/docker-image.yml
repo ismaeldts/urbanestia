@@ -35,3 +35,15 @@ jobs:
 
     - name: Logout from DockerHub
       run: docker logout
+      
+      # Configurar el contexto de Kubernetes usando el secreto KUBECONFIG
+    - name: Set up Kubernetes context
+      run: |
+        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+      # Asegúrate de que el directorio .kube existe
+      shell: bash
+
+    # Actualizar el despliegue en Kubernetes
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl set image deployment/urbanestia-deployment urbanestia=${{ secrets.DOCKER_USERNAME }}/urbanestia:${{ github.sha }}
