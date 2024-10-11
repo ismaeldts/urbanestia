@@ -40,4 +40,4 @@ jobs:
         mkdir -p $HOME/.kube
         echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
         kubectl apply -f deployment.yaml
-        kubectl set image deployment/urbanestia-deployment urbanestia=${{ secrets.DOCKER_USERNAME }}/urbanestia:${{ github.sha }}
+        kubectl set image deployment/urbanestia-backend urbanestia-backend-container=${{ secrets.DOCKER_USERNAME }}/urbanestia:${{ github.sha }}
