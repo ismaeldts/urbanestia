@@ -17,7 +17,7 @@ public class PropertyRequest {
     private String ownerId;
     private String title;
     private String description;
-    private String countryId;
+    private String postalCode;
     private Integer guestCapacity;
     private Integer numberOfRooms;
     private Integer numberOfBathrooms;

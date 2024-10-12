@@ -80,7 +80,6 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort, Upda
               existingProperty.setOwnerId(propertyModel.getOwnerId());
               existingProperty.setTitle(propertyModel.getTitle());
               existingProperty.setDescription(propertyModel.getDescription());
-              existingProperty.setCountry(countryEntityMapper.toDto(propertyModel.getCountry()));
               existingProperty.setGuestCapacity(propertyModel.getGuestCapacity());
               existingProperty.setNumberOfRooms(propertyModel.getNumberOfRooms());
               existingProperty.setNumberOfBathrooms(propertyModel.getNumberOfBathrooms());

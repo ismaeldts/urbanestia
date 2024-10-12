@@ -17,8 +17,8 @@ public class PropertyResponse {
     private String ownerId;
     private String title;
     private String description;
-    private CountryModel country;
     private Integer guestCapacity;
+    private String postalCode;
     private Integer numberOfRooms;
     private Integer numberOfBathrooms;
     private Double price;
