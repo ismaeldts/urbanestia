@@ -10,10 +10,11 @@ public interface FindPropertyPort {
     Flux<PropertyModel> findAllPropertiesByCriteria(PropertyCriteria criteria);
     Flux<PropertyModel> findAllProperties( );
 
-    Mono<PropertyModel> updatePropertyById(String id, PropertyModel propertyModel);
 
     Flux<PropertyModel> findAllByOwnerId(String ownerId);
 
+    Mono<PropertyModel> findPropertyById(String id);
 
+    Mono<Void> deleteProperty(String ownerId);
 
 }

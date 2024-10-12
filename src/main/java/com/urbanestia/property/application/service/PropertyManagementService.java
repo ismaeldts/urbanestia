@@ -2,7 +2,9 @@ package com.urbanestia.property.application.service;
 
 import com.urbanestia.property.domain.model.PropertyModel;
 import com.urbanestia.property.domain.port.property.CreatePropertyPort;
+import com.urbanestia.property.domain.port.property.DeletePropertyByIdPort;
 import com.urbanestia.property.domain.port.property.FindPropertyPort;
+import com.urbanestia.property.domain.port.property.UpdatePropertyByIdPort;
 import com.urbanestia.property.infrastructure.adapter.filter.criteria.PropertyCriteria;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
@@ -14,6 +16,9 @@ public class PropertyManagementService {
 
     private final CreatePropertyPort createPropertyPort;
     private final FindPropertyPort findPropertyPort;
+    private final UpdatePropertyByIdPort updatePropertyPort;
+    private final DeletePropertyByIdPort deletePropertyByIdPort;
+
 
     public Mono<PropertyModel> createProperty(PropertyModel propertyModel, String createdBy) {
         propertyModel.setOwnerId(createdBy);
@@ -35,4 +40,17 @@ public class PropertyManagementService {
     public Flux<PropertyModel> findAllPropertiesByOwnerId(String ownerId) {
         return this.findPropertyPort.findAllByOwnerId(ownerId);
     }
+
+    public Mono<Void> updateProperty(PropertyModel propertyModel, String ownerId) {
+        return updatePropertyPort.updatePropertyById(ownerId, propertyModel);
+    }
+
+    public Mono<PropertyModel> findById(String propertyId){
+        return findPropertyPort.findPropertyById(propertyId);
+    }
+
+    public Mono<Void> deletePropertyById(String propertyId){
+        return deletePropertyByIdPort.deletePropertyById(propertyId);
+    }
+
 }

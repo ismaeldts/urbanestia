@@ -5,6 +5,6 @@ import reactor.core.publisher.Mono;
 
 
 public interface UpdatePropertyByIdPort {
-    Mono<PropertyModel> updatePropertyById(String id);
+    Mono<Void> updatePropertyById(String id, PropertyModel propertyModel);
 
 }

@@ -2,8 +2,11 @@ package com.urbanestia.property.infrastructure.adapter.dao;
 
 import com.urbanestia.property.domain.model.PropertyModel;
 import com.urbanestia.property.domain.port.property.CreatePropertyPort;
+import com.urbanestia.property.domain.port.property.DeletePropertyByIdPort;
 import com.urbanestia.property.domain.port.property.FindPropertyPort;
+import com.urbanestia.property.domain.port.property.UpdatePropertyByIdPort;
 import com.urbanestia.property.infrastructure.adapter.entity.PropertyEntity;
+import com.urbanestia.property.infrastructure.adapter.entity.mapper.CountryEntityMapper;
 import com.urbanestia.property.infrastructure.adapter.entity.mapper.PropertyEntityMapper;
 import com.urbanestia.property.infrastructure.adapter.filter.criteria.PropertyCriteria;
 import com.urbanestia.property.infrastructure.adapter.repository.PropertyRepository;
@@ -17,11 +20,13 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort {
+public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort, UpdatePropertyByIdPort,
+    DeletePropertyByIdPort {
 
     private final PropertyRepository propertyRepository;
     private final PropertyEntityMapper propertyEntityMapper;
     private final ReactiveMongoTemplate reactiveMongoTemplate;
+  private final CountryEntityMapper countryEntityMapper;
 
     @Override
     public Mono<PropertyModel> createProperty(PropertyModel propertyModel) {
@@ -68,11 +73,28 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort {
     }
 
     @Override
-    public Mono<PropertyModel> updatePropertyById(String id, PropertyModel propertyModel) {
+    public Mono<Void> updatePropertyById(String id, PropertyModel propertyModel) {
         return this.propertyRepository.findById(id)
                 .switchIfEmpty(Mono.error(new RuntimeException("There's not Property with this id.")))
-                .flatMap(this.propertyRepository::save)
-                .map(this.propertyEntityMapper::toEntity);
+            .flatMap(existingProperty -> {
+              existingProperty.setOwnerId(propertyModel.getOwnerId());
+              existingProperty.setTitle(propertyModel.getTitle());
+              existingProperty.setDescription(propertyModel.getDescription());
+              existingProperty.setCountry(countryEntityMapper.toDto(propertyModel.getCountry()));
+              existingProperty.setGuestCapacity(propertyModel.getGuestCapacity());
+              existingProperty.setNumberOfRooms(propertyModel.getNumberOfRooms());
+              existingProperty.setNumberOfBathrooms(propertyModel.getNumberOfBathrooms());
+              existingProperty.setPrice(propertyModel.getPrice());
+              existingProperty.setImgUrl(propertyModel.getImgUrl());
+              existingProperty.setType(propertyModel.getType());
+              existingProperty.setStatus(propertyModel.getStatus());
+              existingProperty.setDirection(propertyModel.getDirection());
+              existingProperty.setDescriptionImages(propertyModel.getDescriptionImages());
+              existingProperty.setLatitude(propertyModel.getLatitude());
+              existingProperty.setLongitude(propertyModel.getLongitude());
+              return this.propertyRepository.save(existingProperty);
+            })
+            .then();
     }
 
     @Override
@@ -82,4 +104,23 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort {
             .switchIfEmpty(Mono.error(() -> new RuntimeException("")));
     }
 
+  @Override
+  public Mono<PropertyModel> findPropertyById(String id) {
+    return this.propertyRepository.findById(id).map(this.propertyEntityMapper::toEntity)
+        .switchIfEmpty(
+            Mono.error(() -> new RuntimeException("There's not property with that id." + id)));
+  }
+
+  @Override
+  public Mono<Void> deleteProperty(String id) {
+    return this.propertyRepository.findById(id)
+        .doOnNext(entity -> entity.setStatus("DELETED"))
+        .flatMap(this.propertyRepository::save)
+        .then();
+  }
+
+  @Override
+  public Mono<Void> deletePropertyById(String id) {
+    return this.propertyRepository.deleteById(id);
+  }
 }

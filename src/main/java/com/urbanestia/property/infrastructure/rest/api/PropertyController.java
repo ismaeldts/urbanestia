@@ -13,9 +13,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,4 +81,28 @@ public class PropertyController {
             .map(this.propertyDTOMapper::toDto);
     }
 
+    @PutMapping(path = "/updateProperty/{ownerId}")
+    public Mono<ResponseEntity<BaseEntityResponse>> updatePropertyById(
+        @RequestBody PropertyRequest propertyRequest, @PathVariable("ownerId") String ownerId) {
+        return Mono.just(this.propertyRequestMapper.toEntity(propertyRequest)).flatMap(
+                propertyModel -> this.propertyManagementService.updateProperty(propertyModel, ownerId))
+            .then(Mono.just(ResponseEntity.status(200).body(
+                new BaseEntityResponse("200", "La propiedad fue actualizada con exito.",
+                    LocalDateTime.now()))));
+    }
+
+    @GetMapping(path = "/findById/{propertyId}")
+    public Mono<PropertyResponse> findById(@PathVariable("propertyId") String propertyId) {
+        return propertyManagementService.findById(propertyId).map(this.propertyDTOMapper::toDto);
+    }
+
+    @DeleteMapping(path = "/deleteById/{propertyId}")
+    public Mono<ResponseEntity<BaseEntityResponse>> deleteById(
+        @PathVariable("propertyId") String propertyId) {
+
+        return propertyManagementService.deletePropertyById(propertyId)
+            .then(Mono.just(ResponseEntity.status(200).body(
+                new BaseEntityResponse("200", "La propiedad fue eliminada con exito.",
+                    LocalDateTime.now()))));
+    }
 }
