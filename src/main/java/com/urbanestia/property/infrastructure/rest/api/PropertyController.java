@@ -81,11 +81,11 @@ public class PropertyController {
             .map(this.propertyDTOMapper::toDto);
     }
 
-    @PutMapping(path = "/updateProperty/{ownerId}")
+    @PutMapping(path = "/updateProperty/{id}")
     public Mono<ResponseEntity<BaseEntityResponse>> updatePropertyById(
-        @RequestBody PropertyRequest propertyRequest, @PathVariable("ownerId") String ownerId) {
+        @RequestBody PropertyRequest propertyRequest, @PathVariable("id") String id) {
         return Mono.just(this.propertyRequestMapper.toEntity(propertyRequest)).flatMap(
-                propertyModel -> this.propertyManagementService.updateProperty(propertyModel, ownerId))
+                propertyModel -> this.propertyManagementService.updateProperty(propertyModel, id))
             .then(Mono.just(ResponseEntity.status(200).body(
                 new BaseEntityResponse("200", "La propiedad fue actualizada con exito.",
                     LocalDateTime.now()))));

@@ -41,8 +41,8 @@ public class PropertyManagementService {
         return this.findPropertyPort.findAllByOwnerId(ownerId);
     }
 
-    public Mono<Void> updateProperty(PropertyModel propertyModel, String ownerId) {
-        return updatePropertyPort.updatePropertyById(ownerId, propertyModel);
+    public Mono<Void> updateProperty(PropertyModel propertyModel, String id) {
+        return updatePropertyPort.updatePropertyById(id, propertyModel);
     }
 
     public Mono<PropertyModel> findById(String propertyId){
