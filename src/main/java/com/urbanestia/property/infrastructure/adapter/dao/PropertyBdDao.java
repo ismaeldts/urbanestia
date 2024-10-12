@@ -75,4 +75,11 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort {
                 .map(this.propertyEntityMapper::toEntity);
     }
 
+    @Override
+    public Flux<PropertyModel> findAllByOwnerId(String ownerId) {
+        return this.propertyRepository.findAllByOwnerId(ownerId)
+            .map(this.propertyEntityMapper::toEntity)
+            .switchIfEmpty(Mono.error(() -> new RuntimeException("")));
+    }
+
 }

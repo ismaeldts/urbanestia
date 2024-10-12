@@ -18,7 +18,7 @@ public class PropertyManagementService {
     public Mono<PropertyModel> createProperty(PropertyModel propertyModel, String createdBy) {
         propertyModel.setOwnerId(createdBy);
         propertyModel.setPublicationDate(LocalDateTime.now());
-        if (propertyModel.getDescriptionImages().size() > 1) {
+        if (propertyModel.getDescriptionImages().isEmpty()) {
             propertyModel.setStatus("WAITING_FOR_INFORMATION");
         }
         return createPropertyPort.createProperty(propertyModel);
@@ -32,4 +32,7 @@ public class PropertyManagementService {
         return findPropertyPort.findAllProperties();
     }
 
+    public Flux<PropertyModel> findAllPropertiesByOwnerId(String ownerId) {
+        return this.findPropertyPort.findAllByOwnerId(ownerId);
+    }
 }
