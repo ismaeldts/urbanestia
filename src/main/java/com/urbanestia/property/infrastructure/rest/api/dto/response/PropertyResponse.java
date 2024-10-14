@@ -1,17 +1,17 @@
 package com.urbanestia.property.infrastructure.rest.api.dto.response;
 
-import com.urbanestia.property.domain.model.CountryModel;
-import java.util.List;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDateTime;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Getter
 @Setter
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PropertyResponse {
     private String id;
     private String ownerId;
@@ -29,4 +29,6 @@ public class PropertyResponse {
     private LocalDateTime publicationDate;
     private Double latitude;
     private Double longitude;
+    private Double sizeInSquareMeters;
+    private String condition;
 }

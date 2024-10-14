@@ -15,6 +15,6 @@ public interface FindPropertyPort {
 
     Mono<PropertyModel> findPropertyById(String id);
 
-    Mono<Void> deleteProperty(String ownerId);
+    Mono<Boolean> existsPropertyById(String ownerId);
 
 }

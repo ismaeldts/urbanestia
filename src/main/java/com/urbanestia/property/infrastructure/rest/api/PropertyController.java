@@ -99,10 +99,15 @@ public class PropertyController {
     @DeleteMapping(path = "/deleteById/{propertyId}")
     public Mono<ResponseEntity<BaseEntityResponse>> deleteById(
         @PathVariable("propertyId") String propertyId) {
-
         return propertyManagementService.deletePropertyById(propertyId)
             .then(Mono.just(ResponseEntity.status(200).body(
                 new BaseEntityResponse("200", "La propiedad fue eliminada con exito.",
                     LocalDateTime.now()))));
     }
+
+    @GetMapping(path = "/existsById/{propertyId}")
+    public Mono<Boolean> existsPropertyById(@PathVariable("propertyId") String propertyId) {
+        return this.propertyManagementService.existsPropertyById(propertyId);
+    }
+
 }

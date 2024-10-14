@@ -17,6 +17,6 @@ public class CityEntity {
     @Id
     private String id;
     private String name;
-    private CountryEntity country;
+    private String countryId;
 
 }

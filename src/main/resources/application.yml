@@ -8,3 +8,4 @@ spring:
   data:
     mongodb:
       uri: mongodb://mongo:WXBLRlYRRenvTIhyjqcBxpvBXZrpEjwS@junction.proxy.rlwy.net:24993/urbanestia?authSource=admin
+

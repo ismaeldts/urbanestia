@@ -12,5 +12,5 @@ import lombok.Setter;
 public class CityModel {
     private String id;
     private String name;
-    private String state;
+    private String countryId;
 }

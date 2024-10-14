@@ -111,15 +111,15 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort, Upda
   }
 
   @Override
-  public Mono<Void> deleteProperty(String id) {
-    return this.propertyRepository.findById(id)
-        .doOnNext(entity -> entity.setStatus("DELETED"))
-        .flatMap(this.propertyRepository::save)
-        .then();
+  public Mono<Boolean> existsPropertyById(String id) {
+    return this.propertyRepository.existsPropertyById(id);
   }
 
   @Override
   public Mono<Void> deletePropertyById(String id) {
     return this.propertyRepository.deleteById(id);
   }
+
+
+
 }

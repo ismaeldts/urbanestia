@@ -17,17 +17,18 @@ public class PropertyRequest {
     private String ownerId;
     private String title;
     private String description;
-    private String postalCode;
     private Integer guestCapacity;
+    private String postalCode;
     private Integer numberOfRooms;
     private Integer numberOfBathrooms;
     private Double price;
     private String imgUrl;
     private String type;
-    private String direction;
     private List<String> descriptionImages;
     private LocalDateTime publicationDate;
     private Double latitude;
     private Double longitude;
-
+    private Double sizeInSquareMeters;
+    private String condition;
+    private String cityId;
 }

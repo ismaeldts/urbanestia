@@ -7,7 +7,6 @@ import com.urbanestia.property.domain.port.property.FindPropertyPort;
 import com.urbanestia.property.domain.port.property.UpdatePropertyByIdPort;
 import com.urbanestia.property.infrastructure.adapter.filter.criteria.PropertyCriteria;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import lombok.AllArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -52,6 +51,10 @@ public class PropertyManagementService {
 
     public Mono<Void> deletePropertyById(String propertyId){
         return deletePropertyByIdPort.deletePropertyById(propertyId);
+    }
+
+    public Mono<Boolean> existsPropertyById(String propertyId) {
+        return findPropertyPort.existsPropertyById(propertyId);
     }
 
 }
