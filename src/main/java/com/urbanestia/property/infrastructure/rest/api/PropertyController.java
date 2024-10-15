@@ -76,9 +76,22 @@ public class PropertyController {
     }
 
     @GetMapping(path = "/findAllByOwner/{ownerId}")
-    public Flux<PropertyResponse> findAllByOwner(@PathVariable("ownerId") String ownerId) {
-        return propertyManagementService.findAllPropertiesByOwnerId(ownerId)
+    public Mono<ResponseEntity<Flux<PropertyResponse>>> findAllByOwner(
+        @PathVariable("ownerId") String ownerId) {
+
+        Flux<PropertyResponse> properties = propertyManagementService
+            .findAllPropertiesByOwnerId(ownerId)
             .map(this.propertyDTOMapper::toDto);
+
+        return properties
+            .hasElements()
+            .flatMap(hasElements -> {
+                if (hasElements) {
+                    return Mono.just(new ResponseEntity<>(properties, HttpStatus.OK));
+                } else {
+                    return Mono.just(new ResponseEntity<>(Flux.empty(), HttpStatus.NO_CONTENT));
+                }
+            });
     }
 
     @PutMapping(path = "/updateProperty/{id}")
