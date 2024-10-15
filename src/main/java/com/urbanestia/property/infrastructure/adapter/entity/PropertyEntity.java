@@ -35,5 +35,9 @@ public class PropertyEntity {
     private LocalDateTime publicationDate;
     private Double latitude;
     private Double longitude;
+    private Double sizeInSquareMeters;
+    private String condition;
+    private String cityId;
+
 
 }
