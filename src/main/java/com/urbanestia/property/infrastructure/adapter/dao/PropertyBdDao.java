@@ -26,7 +26,6 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort, Upda
     private final PropertyRepository propertyRepository;
     private final PropertyEntityMapper propertyEntityMapper;
     private final ReactiveMongoTemplate reactiveMongoTemplate;
-  private final CountryEntityMapper countryEntityMapper;
 
     @Override
     public Mono<PropertyModel> createProperty(PropertyModel propertyModel) {

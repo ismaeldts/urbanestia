@@ -34,4 +34,6 @@ public class CityController {
   public Flux<CityResponse> findAllByCountryId(@PathVariable("countryId") String country) {
     return cityManagementService.findAllByCountryId(country).map(this.cityResponseMapper::toDto);
   }
+
+
 }
