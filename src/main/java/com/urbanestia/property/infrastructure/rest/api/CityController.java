@@ -6,6 +6,8 @@ import com.urbanestia.property.infrastructure.rest.api.dto.response.CityResponse
 import com.urbanestia.property.infrastructure.rest.mapper.response.CityRequestMapper;
 import com.urbanestia.property.infrastructure.rest.mapper.response.CityResponseMapper;
 import java.util.List;
+
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping(path = "/api/v1/cities")
 @RestController
 public class CityController {

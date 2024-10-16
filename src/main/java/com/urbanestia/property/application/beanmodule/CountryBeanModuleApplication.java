@@ -18,13 +18,4 @@ public class CountryBeanModuleApplication {
         FindCountryPort findCountryPort) {
         return new CountryManagementService(createCountryPort, findCountryPort);
     }
-
-    @Bean
-    public CityManagementService cityManagementService(
-        CreateCityPort createCityPort,
-        FindCityPort findCityPort
-    ) {
-        return new CityManagementService(createCityPort, findCityPort);
-    }
-
 }
