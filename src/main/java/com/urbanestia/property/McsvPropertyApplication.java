@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @OpenAPIDefinition
-public class McsvPropertyApplication {
+ public class McsvPropertyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(McsvPropertyApplication.class, args);

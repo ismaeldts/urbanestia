@@ -10,7 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-
 public class CountryResponse {
 
   private String id;

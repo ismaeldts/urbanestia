@@ -10,8 +10,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CountryRequest {
-
-  private String id;
-  private String name;
-
+    private String name;
 }
