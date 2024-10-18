@@ -8,4 +8,6 @@ public interface FindCityPort {
     Mono<CityModel> findById(String id);
 
     Flux<CityModel> findAllCitiesByCountryId(String id);
+
+    Flux<CityModel> findAll();
 }

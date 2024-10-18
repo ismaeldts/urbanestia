@@ -1,17 +1,17 @@
-package com.urbanestia.property.domain.model;
+package com.urbanestia.property.infrastructure.rest.api.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter//
+@Getter
 @Setter
-public class CountryModel {
-    private String  id;
-    private String name;
+public class CountryRequest {
+
+  private String id;
+  private String name;
 
 }

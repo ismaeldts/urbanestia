@@ -27,7 +27,7 @@ public class CityManagementService implements CityUseCase {
 
     @Override
     public Flux<CityModel> findAll() {
-        return null;
+        return this.findCityPort.findAll();
     }
 
     public Flux<CityModel> saveAllCities(List<CityModel> cityModel) {

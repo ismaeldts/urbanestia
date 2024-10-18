@@ -4,6 +4,7 @@ import com.urbanestia.property.application.usecase.CountryUseCase;
 import com.urbanestia.property.domain.model.CountryModel;
 import com.urbanestia.property.domain.port.country.CreateCountryPort;
 import com.urbanestia.property.domain.port.country.FindCountryPort;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -28,4 +29,7 @@ public class CountryManagementService implements CountryUseCase {
         return this.findCountryPort.findAll();
     }
 
+    public Flux<CountryModel> saveAllCountries(List<CountryModel> countryModel) {
+        return createCountryPort.createAll(countryModel);
+    }
 }

@@ -38,6 +38,7 @@ public class PropertyController {
 
     @PostMapping
     public Mono<ResponseEntity<BaseEntityResponse>> createProperty(@RequestBody PropertyRequest propertyRequest, @RequestHeader(name = "created_by") String createdBy) {
+        log.info("Entrando la petición de crear propiedades.");
         return Mono.just(this.propertyRequestMapper.toEntity(propertyRequest))
                 .flatMap(propertyModel -> this.propertyManagementService.createProperty(propertyModel, SanitizeStringUtil.sanitize(createdBy)))
                 .then(Mono.just(ResponseEntity.status(HttpStatus.OK)

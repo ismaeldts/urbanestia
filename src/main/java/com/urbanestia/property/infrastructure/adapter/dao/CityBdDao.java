@@ -6,13 +6,15 @@ import com.urbanestia.property.domain.port.city.FindCityPort;
 import com.urbanestia.property.infrastructure.adapter.entity.mapper.CityEntityMapper;
 import com.urbanestia.property.infrastructure.adapter.repository.CityRepository;
 import java.util.List;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Slf4j
 public class CityBdDao implements CreateCityPort, FindCityPort {
 
     private final CityRepository cityRepository;
@@ -26,7 +28,8 @@ public class CityBdDao implements CreateCityPort, FindCityPort {
 
     @Override
     public Flux<CityModel> createCities(List<CityModel> cityModel) {
-        return cityRepository.saveAll(cityEntityMapper.toDto(cityModel))
+        log.info("Entro petición al repository");
+        return this.cityRepository.saveAll(cityEntityMapper.toDto(cityModel))
             .map(this.cityEntityMapper::toEntity)
             .switchIfEmpty(
                 Mono.error(() -> new RuntimeException("The list of cities can not be empty")));
@@ -41,5 +44,11 @@ public class CityBdDao implements CreateCityPort, FindCityPort {
     @Override
     public Flux<CityModel> findAllCitiesByCountryId(String id) {
         return this.cityRepository.findAllByCountryId(id).map(this.cityEntityMapper::toEntity);
+    }
+
+    @Override
+    public Flux<CityModel> findAll() {
+        log.info("Entro peticion al repository.");
+        return this.cityRepository.findAll().map(this.cityEntityMapper::toEntity);
     }
 }

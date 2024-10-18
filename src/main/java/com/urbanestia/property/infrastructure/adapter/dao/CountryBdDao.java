@@ -5,6 +5,7 @@ import com.urbanestia.property.domain.port.country.CreateCountryPort;
 import com.urbanestia.property.domain.port.country.FindCountryPort;
 import com.urbanestia.property.infrastructure.adapter.entity.mapper.CountryEntityMapper;
 import com.urbanestia.property.infrastructure.adapter.repository.CountryRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -22,7 +23,13 @@ public class CountryBdDao implements CreateCountryPort, FindCountryPort {
         return this.countryRepository
                 .save(countryEntityMapper.toDto(countryModel))
                 .map(this.countryEntityMapper::toEntity)
-                .switchIfEmpty(Mono.error(new RuntimeException("")));
+            .switchIfEmpty(Mono.error(new RuntimeException("")));
+    }
+
+    @Override
+    public Flux<CountryModel> createAll(List<CountryModel> countryModel) {
+        return this.countryRepository.saveAll(this.countryEntityMapper.toDto(countryModel))
+            .map(this.countryEntityMapper::toEntity);
     }
 
     @Override
