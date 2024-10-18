@@ -3,6 +3,7 @@ package com.urbanestia.property.infrastructure.adapter.dao;
 import com.urbanestia.property.domain.model.CountryModel;
 import com.urbanestia.property.domain.port.country.CreateCountryPort;
 import com.urbanestia.property.domain.port.country.FindCountryPort;
+import com.urbanestia.property.infrastructure.adapter.entity.CountryEntity;
 import com.urbanestia.property.infrastructure.adapter.entity.mapper.CountryEntityMapper;
 import com.urbanestia.property.infrastructure.adapter.repository.CountryRepository;
 import java.util.List;
@@ -26,10 +27,18 @@ public class CountryBdDao implements CreateCountryPort, FindCountryPort {
             .switchIfEmpty(Mono.error(new RuntimeException("")));
     }
 
+    public Mono<CountryEntity> createCountry2(CountryModel countryModel){
+        return countryRepository.save(this.countryEntityMapper.toDto(countryModel));
+    }
+
     @Override
     public Flux<CountryModel> createAll(List<CountryModel> countryModel) {
-        return this.countryRepository.saveAll(this.countryEntityMapper.toDto(countryModel))
-            .map(this.countryEntityMapper::toEntity);
+        return Flux.fromIterable(countryModel)
+            .flatMap(countryModels ->
+                this.countryRepository
+                    .save(countryEntityMapper.toDto(countryModels))
+                    .map(this.countryEntityMapper::toEntity)
+            );
     }
 
     @Override

@@ -2,15 +2,16 @@ package com.urbanestia.property.infrastructure.rest.api;
 
 import com.urbanestia.property.application.service.CityManagementService;
 import com.urbanestia.property.application.service.CountryManagementService;
+import com.urbanestia.property.domain.model.CountryModel;
+import com.urbanestia.property.infrastructure.adapter.dao.CountryBdDao;
+import com.urbanestia.property.infrastructure.adapter.entity.CountryEntity;
+import com.urbanestia.property.infrastructure.adapter.entity.mapper.CountryEntityMapper;
 import com.urbanestia.property.infrastructure.rest.api.dto.request.CountryRequest;
-import com.urbanestia.property.infrastructure.rest.api.dto.response.BaseEntityResponse;
 import com.urbanestia.property.infrastructure.rest.api.dto.response.CountryResponse;
 import com.urbanestia.property.infrastructure.rest.mapper.request.CountryRequestMapper;
 import com.urbanestia.property.infrastructure.rest.mapper.response.CityResponseMapper;
 import com.urbanestia.property.infrastructure.rest.mapper.response.CountryResponseMapper;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,16 +33,8 @@ public class CountryController {
   private final CountryResponseMapper countryResponseMapper;
   private final CityManagementService cityManagementService;
   private final CityResponseMapper cityResponseMapper;
-
-  @PostMapping
-  public Mono<BaseEntityResponse> saveAllCountries(@RequestBody List<CountryRequest> countries) {
-    log.info("Entro al endpoint de paises.");
-    countryManagementService.saveAllCountries(
-        countries.stream().map(this.countryRequestMapper::toEntity).collect(
-            Collectors.toList())).map(this.countryResponseMapper::toDto);
-    return Mono.just(
-        new BaseEntityResponse("201", "Los paises fueron creados con exito.", LocalDateTime.now()));
-  }
+  private final CountryBdDao countryBdDao;
+  private final CountryEntityMapper countryEntityMapper;
 
   @GetMapping(path = "/findAllCountries")
   public Flux<CountryResponse> findAllCountries() {
@@ -56,7 +49,22 @@ public class CountryController {
                   return countryResponse;
                 })
         );
-
   }
+
+  @PostMapping(path = "/create")
+  public Mono<CountryModel> saveCountry(@RequestBody CountryRequest countries) {
+    log.info("Entro al endpoint de paises.");
+
+    CountryModel countryModel = countryRequestMapper.toEntity(countries);
+
+    return countryManagementService.createCountry(countryModel);
+  }
+
+
+  @PostMapping(path = "/createAll")
+  public Flux<CountryModel> createAll(@RequestBody List<CountryEntity> country) {
+    return countryBdDao.createAll(countryEntityMapper.toEntity(country));
+  }
+
 }
 
