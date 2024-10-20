@@ -30,15 +30,12 @@ public class CityBdDao implements CreateCityPort, FindCityPort {
     public Flux<CityModel> createCities(List<CityModel> cityModel) {
         log.info("Entro petición al repository");
         return this.cityRepository.saveAll(cityEntityMapper.toDto(cityModel))
-            .map(this.cityEntityMapper::toEntity)
-            .switchIfEmpty(
-                Mono.error(() -> new RuntimeException("The list of cities can not be empty")));
+            .map(this.cityEntityMapper::toEntity);
     }
 
     @Override
     public Mono<CityModel> findById(String id) {
-        return this.cityRepository.findById(id).map(this.cityEntityMapper::toEntity).switchIfEmpty(
-            Mono.error(() -> new RuntimeException("There's no city with this id")));
+        return this.cityRepository.findById(id).map(this.cityEntityMapper::toEntity);
     }
 
     @Override

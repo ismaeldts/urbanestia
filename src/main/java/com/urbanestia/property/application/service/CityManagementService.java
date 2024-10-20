@@ -22,7 +22,7 @@ public class CityManagementService implements CityUseCase {
 
     @Override
     public Mono<CityModel> findById(String cityId) {
-        return null;
+        return findCityPort.findById(cityId);
     }
 
     @Override
