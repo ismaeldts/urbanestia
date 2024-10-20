@@ -4,23 +4,19 @@ import com.urbanestia.property.application.service.CityManagementService;
 import com.urbanestia.property.application.service.CountryManagementService;
 import com.urbanestia.property.domain.model.CountryModel;
 import com.urbanestia.property.infrastructure.adapter.dao.CountryBdDao;
-import com.urbanestia.property.infrastructure.adapter.entity.CountryEntity;
 import com.urbanestia.property.infrastructure.adapter.entity.mapper.CountryEntityMapper;
 import com.urbanestia.property.infrastructure.rest.api.dto.request.CountryRequest;
 import com.urbanestia.property.infrastructure.rest.api.dto.response.CountryResponse;
 import com.urbanestia.property.infrastructure.rest.mapper.request.CountryRequestMapper;
 import com.urbanestia.property.infrastructure.rest.mapper.response.CityResponseMapper;
 import com.urbanestia.property.infrastructure.rest.mapper.response.CountryResponseMapper;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/countries")
@@ -62,8 +58,8 @@ public class CountryController {
 
 
   @PostMapping(path = "/createAll")
-  public Flux<CountryModel> createAll(@RequestBody List<CountryEntity> country) {
-    return countryBdDao.createAll(countryEntityMapper.toEntity(country));
+  public Flux<CountryModel> createAll(@RequestBody List<CountryRequest> country) {
+    return countryManagementService.saveAllCountries(countryRequestMapper.toEntity(country));
   }
 
 }
