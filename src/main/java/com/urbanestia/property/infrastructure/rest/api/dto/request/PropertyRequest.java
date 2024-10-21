@@ -25,7 +25,6 @@ public class PropertyRequest {
     private Double price;
     private String imgUrl;
     private String status; // Estado de la publicación: Borrador, Publicado, Pausado, Vendido, Alquilado, etc.
-    private String direction; // Dirección de la propiedad
     private List<String> descriptionImages;
     private LocalDateTime publicationDate;
     private Double latitude;
