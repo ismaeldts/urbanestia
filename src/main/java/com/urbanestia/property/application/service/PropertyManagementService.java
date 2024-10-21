@@ -18,7 +18,7 @@ public class PropertyManagementService {
     private final FindPropertyPort findPropertyPort;
     private final UpdatePropertyByIdPort updatePropertyPort;
     private final DeletePropertyByIdPort deletePropertyByIdPort;
-
+    private final CityManagementService cityManagementService;
 
     public Mono<PropertyModel> createProperty(PropertyModel propertyModel, String createdBy) {
         propertyModel.setOwnerId(createdBy);
@@ -26,6 +26,7 @@ public class PropertyManagementService {
         if (propertyModel.getDescriptionImages().isEmpty()) {
             propertyModel.setStatus("WAITING_FOR_INFORMATION");
         }
+
         return createPropertyPort.createProperty(propertyModel);
     }
 

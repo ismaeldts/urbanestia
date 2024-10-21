@@ -1,6 +1,5 @@
 package com.urbanestia.property.infrastructure.adapter.entity;
 
-import com.urbanestia.property.domain.model.CountryModel;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class PropertyEntity {
 
     @Id
+    private String id;
     private String ownerId;
     private String title;
     private String description;
