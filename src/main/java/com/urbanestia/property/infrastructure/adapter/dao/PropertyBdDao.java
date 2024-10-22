@@ -67,8 +67,7 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort, Upda
     @Override
     public Flux<PropertyModel> findAllProperties() {
         return this.propertyRepository.findAll()
-                .map(this.propertyEntityMapper::toEntity)
-                .switchIfEmpty(Mono.error(() -> new RuntimeException("There's no properties in to the database.")));
+                .map(this.propertyEntityMapper::toEntity);
     }
 
     @Override
@@ -103,9 +102,7 @@ public class PropertyBdDao implements CreatePropertyPort, FindPropertyPort, Upda
 
   @Override
   public Mono<PropertyModel> findPropertyById(String id) {
-    return this.propertyRepository.findById(id).map(this.propertyEntityMapper::toEntity)
-        .switchIfEmpty(
-            Mono.error(() -> new RuntimeException("There's not property with that id." + id)));
+    return this.propertyRepository.findById(id).map(this.propertyEntityMapper::toEntity) ;
   }
 
   @Override
