@@ -24,7 +24,7 @@ public class PropertyRequest {
     private Integer numberOfBathrooms;
     private Double price;
     private String imgUrl;
-    private String status; // Estado de la publicación: Borrador, Publicado, Pausado, Vendido, Alquilado, etc.
+    private String status;
     private List<String> descriptionImages;
     private LocalDateTime publicationDate;
     private Double latitude;
