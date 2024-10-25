@@ -17,14 +17,6 @@ spec:
           image: ismaeltrochas/urbanestia:latest
           ports:
             - containerPort: 8080
-            - containerPort: 8081
-          env:
-            # Para ConfigMap
-            - name: URBENESTIA_PROPERTIES_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: microservices-config
-                  key: URBENESTIA_PROPERTIES_URL
 ---
 apiVersion: v1
 kind: Service
