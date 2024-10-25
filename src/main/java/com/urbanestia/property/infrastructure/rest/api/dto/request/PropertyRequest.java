@@ -1,13 +1,13 @@
 package com.urbanestia.property.infrastructure.rest.api.dto.request;
 
-import com.urbanestia.property.domain.model.CountryModel;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
