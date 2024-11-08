@@ -16,7 +16,7 @@ spec:
         - name: urbanestia-backend-container
           image: ismaeltrochas/urbanestia:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 8081
 ---
 apiVersion: v1
 kind: Service
