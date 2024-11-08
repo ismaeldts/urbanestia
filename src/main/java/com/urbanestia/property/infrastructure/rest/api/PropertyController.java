@@ -105,11 +105,29 @@ public class PropertyController {
                     LocalDateTime.now()))));
     }
 
+    /**
+     * Retrieves a property by its unique identifier.
+     *
+     * @param propertyId The unique identifier of the property to be retrieved.
+     * @return A {@link Mono} containing the {@link PropertyResponse} of the found property.
+     *         If no property is found with the given {@code propertyId}, the {@link Mono} will complete empty.
+     *
+     * @throws IllegalArgumentException If the {@code propertyId} is null or empty.
+     */
     @GetMapping(path = "/findById/{propertyId}")
     public Mono<PropertyResponse> findById(@PathVariable("propertyId") String propertyId) {
         return propertyManagementService.findById(propertyId).map(this.propertyDTOMapper::toDto);
     }
 
+    /**
+     * Deletes a property by its unique identifier.
+     *
+     * @param propertyId The unique identifier of the property to be deleted.
+     * @return A {@link Mono} containing a {@link ResponseEntity} with a {@link BaseEntityResponse} indicating the success of the deletion operation.
+     *         If the property with the given {@code propertyId} does not exist, the {@link Mono} will complete empty.
+     *
+     * @throws IllegalArgumentException If the {@code propertyId} is null or empty.
+     */
     @DeleteMapping(path = "/deleteById/{propertyId}")
     public Mono<ResponseEntity<BaseEntityResponse>> deleteById(
         @PathVariable("propertyId") String propertyId) {
@@ -123,5 +141,4 @@ public class PropertyController {
     public Mono<Boolean> existsPropertyById(@PathVariable("propertyId") String propertyId) {
         return this.propertyManagementService.existsPropertyById(propertyId);
     }
-
 }
