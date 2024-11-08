@@ -16,7 +16,7 @@ spec:
         - name: urbanestia-backend-container
           image: ismaeltrochas/urbanestia:latest
           ports:
-            - containerPort: 8888
+            - containerPort: 8081
 ---
 apiVersion: v1
 kind: Service
@@ -28,5 +28,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80         # Puerto que expone el servicio de K8s
-      targetPort: 8888 # Puerto del contenedor en Dockerfile o en application.yml donde se expone la API
+      targetPort: 8081 # Puerto del contenedor en Dockerfile o en application.yml donde se expone la API
   type: ClusterIP     # Tipo de servicio en K8s
